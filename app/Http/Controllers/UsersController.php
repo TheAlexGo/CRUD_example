@@ -43,7 +43,7 @@ class UsersController extends Controller
     public function store(UserRequest $request)
     {
         User::create($request->only(['name', 'email']));
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->withSuccess('Created user ' . $request->name);
     }
 
     /**
@@ -60,12 +60,12 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Request $user
+     * @param User $user
      * @return View
      */
-    public function edit(Request $user)
+    public function edit(User $user)
     {
-        return view('form', compact('user'));
+        return view('form', compact('user'))->withSuccess('Created user ' . $user->name);
     }
 
     /**
@@ -78,7 +78,7 @@ class UsersController extends Controller
     public function update(UserRequest $request, User $user)
     {
         $user->update($request->only(['name', 'email']));
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->withSuccess('Updated user ' . $user->name);
     }
 
     /**
@@ -90,6 +90,6 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->withDanger('Deleted user ' . $user->name);
     }
 }

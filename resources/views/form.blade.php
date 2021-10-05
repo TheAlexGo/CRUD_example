@@ -3,7 +3,7 @@
 @section('title', (isset($user) ? 'Update '.$user->name : 'Create user'))
 
 @section('content')
-    <x-buttons.back />
+    <x-buttons.back/>
     <form
         method="POST"
         @if(isset($user))
@@ -45,9 +45,11 @@
                 maxlength="50"
             >
             @error('email')
-            <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
-        <button type="submit" class="btn btn-success">Create</button>
+        <button type="submit" class="btn btn-success">
+            {{ isset($user) ? "Update" : "Create" }}
+        </button>
     </form>
 @endsection
