@@ -3,7 +3,7 @@
 @section('title', (isset($user) ? 'Update '.$user->name : 'Create user'))
 
 @section('content')
-    <a role="button" class="btn btn-secondary" href="{{ route('users.index') }}">Back to users</a>
+    <a role="button" class="btn btn-secondary mb-4" href="{{ route('users.index') }}">Back to users</a>
     <form
         method="POST"
         @if(isset($user))
@@ -11,7 +11,6 @@
         @else
         action="{{ route('users.store') }}"
         @endif
-        class="mt-3"
     >
         @csrf
         @isset($user)
