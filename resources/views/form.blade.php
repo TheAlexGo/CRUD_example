@@ -3,7 +3,7 @@
 @section('title', (isset($user) ? 'Update '.$user->name : 'Create user'))
 
 @section('content')
-    <a role="button" class="btn btn-secondary mb-4" href="{{ route('users.index') }}">Back to users</a>
+    <x-buttons.back />
     <form
         method="POST"
         @if(isset($user))

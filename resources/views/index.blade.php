@@ -29,7 +29,7 @@
                     </a>
                 </td>
                 <td>
-                    <a role="button" class="btn btn-warning" href="{{ route('users.edit', $user) }}">Edit</a>
+                    <x-user-actions :user="$user" />
                 </td>
             </tr>
         @endforeach

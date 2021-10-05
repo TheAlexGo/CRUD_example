@@ -3,7 +3,7 @@
 @section('title', 'User ' . $user->name)
 
 @section('content')
-    <a role="button" class="btn btn-secondary mb-4" href="{{ route('users.index') }}">Back to users</a>
+    <x-buttons.back />
     <div class="card" style="width: 18rem;">
         <ul class="list-group list-group-flush">
             <li class="list-group-item">Id: {{ $user->id }}</li>
@@ -14,5 +14,7 @@
         </ul>
     </div>
 
-    <a role="button" class="btn btn-warning mt-3" href="{{ route('users.edit', $user) }}">Edit</a>
+    <div class="mt-3">
+        <x-user-actions :user="$user" />
+    </div>
 @endsection
