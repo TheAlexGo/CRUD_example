@@ -20,7 +20,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::get();
+        $users = User::paginate(15);
         return view('index', compact('users'));
     }
 
@@ -60,10 +60,10 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param UserRequest $user
+     * @param Request $user
      * @return View
      */
-    public function edit(UserRequest $user)
+    public function edit(Request $user)
     {
         return view('form', compact('user'));
     }
