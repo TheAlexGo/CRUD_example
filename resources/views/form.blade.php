@@ -25,8 +25,12 @@
                 id="name"
                 aria-label="Name"
                 placeholder="Enter your name"
-                value="{{ isset($user) ? $user->name : null }}"
+                value="{{ old('name', isset($user) ? $user->name : null) }}"
+                maxlength="50"
             >
+            @error('name')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
@@ -37,8 +41,12 @@
                 id="email"
                 aria-label="Email"
                 placeholder="Enter your email"
-                value="{{ isset($user) ? $user->email : null }}"
+                value="{{ old('email', isset($user) ? $user->email : null) }}"
+                maxlength="50"
             >
+            @error('email')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
         <button type="submit" class="btn btn-success">Create</button>
     </form>
