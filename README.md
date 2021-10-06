@@ -18,3 +18,5 @@
 - Создать файл .env по прототипу .env.example
 - Указать настройки подключения к базе данных, основываясь на конфигурации в docker-compose.yml
 - Запустить проект через: `docker-compose up -d`
+- Установить миграции: `docker-compose exec app php artisan migrate`
+- Открыть проект в браузере по ссылке: http://localhost:80/
