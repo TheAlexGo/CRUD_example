@@ -8,8 +8,15 @@
 
 ## Установка
 - Перейти в нужную директорию через командную строку (cd ...)
-- git clone https://github.com/TheAlexGo/CRUD_example.git
-- composer install
+- Клонировать репозиторий: `git clone https://github.com/TheAlexGo/CRUD_example.git`
+- Установить зависимости: `composer install`
 - Определить database и APP_KEY в .env
-- php artisan migrate --seed
-- php artisan serve
+- Установить миграции: `php artisan migrate --seed`
+- Запустить приложение: `php artisan serve`
+
+## Запуск через Docker
+- Создать файл .env по прототипу .env.example
+- Указать настройки подключения к базе данных, основываясь на конфигурации в docker-compose.yml
+- Запустить проект через: `docker-compose up -d`
+- Установить миграции: `docker-compose exec app php artisan migrate`
+- Открыть проект в браузере по ссылке: http://localhost:80/

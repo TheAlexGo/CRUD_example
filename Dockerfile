@@ -1,10 +1,10 @@
 FROM php:8.0.11-fpm
 
-# Copy composer.lock and composer.json
-COPY composer.lock composer.json /var/www/
-
 # Set working directory
 WORKDIR /var/www
+
+# Copy composer.lock and composer.json
+COPY composer.lock composer.json ./
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -24,7 +24,7 @@ RUN docker-php-ext-install pdo_mysql mbstring exif
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Copy existing application directory contents
-COPY . /var/www
+COPY . ./
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
