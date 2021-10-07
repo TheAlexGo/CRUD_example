@@ -17,6 +17,8 @@
 ## Запуск через Docker
 - Создать файл .env по прототипу .env.example
 - Указать настройки подключения к базе данных, основываясь на конфигурации в docker-compose.yml
-- Запустить проект через: `docker-compose up -d`
+- Собрать проект: `docker-compose up -d`
+- Скачать пакеты: `docker-compose exec app composer install`
+- Запустить проект: `docker-compose exec app php artisan serve --host 0.0.0.0`
 - Установить миграции: `docker-compose exec app php artisan migrate`
 - Открыть проект в браузере по ссылке: http://localhost:80/
