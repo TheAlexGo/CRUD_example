@@ -3,8 +3,8 @@ FROM php:8.0.11-fpm
 # Set working directory
 WORKDIR /var/www
 
-# Copy composer.lock and composer.json
-COPY composer.lock composer.json ./
+# Copy existing application directory contents
+COPY . ./
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -12,7 +12,10 @@ RUN apt-get update && apt-get install -y \
     curl \
     libonig-dev \
     libpq-dev \
-    openssl
+    openssl \
+    zip \
+    unzip
+    #npm
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -20,12 +23,10 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 # Install extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif
 
-# Install composer
+# Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copy existing application directory contents
-COPY . ./
+RUN composer install
+#RUN npm install
 
-# Expose port 9000 and start php-fpm server
-EXPOSE 9000
-CMD ["php-fpm"]
+CMD bash -c "php artisan serve --host 0.0.0.0"
