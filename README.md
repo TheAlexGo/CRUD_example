@@ -15,10 +15,12 @@
 - Запустить приложение: `php artisan serve`
 
 ## Запуск через Docker
-- Создать файл .env по прототипу .env.example
-- Указать настройки подключения к базе данных, основываясь на конфигурации в docker-compose.yml
-- Собрать проект: `docker-compose up -d`
+- Создать файл .env: `copy .env.example .env`
+- Установить ключи для `DB_HOST=db` и для `DB_DATABASE` - название проекта (например, если
+  проект находится в папке CRUD_example, то создастся база данных CRUD_example)
+- Собрать проект: `docker-compose up -d --build`
 - Скачать пакеты: `docker-compose exec app composer install`
 - Запустить проект: `docker-compose exec app php artisan serve --host 0.0.0.0`
+- Сгенерировать ключ приложения: `docker-compose exec app php artisan key:generate`
 - Установить миграции: `docker-compose exec app php artisan migrate`
 - Открыть проект в браузере по ссылке: http://localhost:80/
