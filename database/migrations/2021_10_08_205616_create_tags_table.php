@@ -19,6 +19,7 @@ class CreateTagsTable extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+            $table->string('text');
             $table->timestamps();
         });
     }

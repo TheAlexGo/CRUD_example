@@ -28,5 +28,22 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
         crossorigin="anonymous"></script>
+<script>
+    const $deleteTagsButton = document.querySelectorAll('.deleteTag');
+    const $addTagButton = document.querySelector('.addTag');
+
+    function deleteTag(button) {
+        const tagId = button.dataset.tagid;
+        const $tagBlock = document.querySelector('#' + tagId);
+        $tagBlock.parentNode.remove();
+    }
+
+    $addTagButton.onclick = () => {
+        const $tagsBlock = document.querySelector('.tags');
+        const $newTagBlock = document.createElement('div');
+        $newTagBlock.innerHTML = `<x-forms.tags.input id="{{ rand(0, 1000) }}" />`;
+        $tagsBlock.appendChild($newTagBlock);
+    };
+</script>
 </body>
 </html>

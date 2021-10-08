@@ -42,7 +42,9 @@ class UsersController extends Controller
      */
     public function store(UserRequest $request)
     {
-        User::create($request->only(['name', 'email']));
+        $user_id = User::create($request->only(['name', 'email']))->id;
+        $request->request->add(compact('user_id'));
+        (new TagsController)->create($request);
         return redirect()->route('users.index')->withSuccess('Created user ' . $request->name);
     }
 
