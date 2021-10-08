@@ -16,8 +16,6 @@
 
 ## Запуск через Docker
 - Создать файл .env: `copy .env.example .env`
-- Установить ключи для `DB_HOST=db` и для `DB_DATABASE` - название проекта (например, если
-  проект находится в папке CRUD_example, то создастся база данных CRUD_example)
 - Собрать проект: `docker-compose up -d --build`
 - Скачать пакеты: `docker-compose exec app composer install`
 - Запустить проект: `docker-compose exec app php artisan serve --host 0.0.0.0`
