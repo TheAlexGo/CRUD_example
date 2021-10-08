@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Tags extends Migration
+class CreateTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,7 +19,6 @@ class Tags extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-            $table->string('text');
             $table->timestamps();
         });
     }
