@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tags;
+use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -18,7 +18,8 @@ class TagsController extends Controller
         $user_id = $request->user_id;
         $tags = $request->tags;
         foreach ($tags as $tag) {
-            Tags::create([
+            if($tag == null) continue;
+            Tag::create([
                "user_id" => $user_id,
                "text" => $tag
             ]);
@@ -30,11 +31,11 @@ class TagsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Tags  $tags
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Tag  $tag
+     * @return void
      */
-    public function destroy(Tags $tags)
+    public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
     }
 }

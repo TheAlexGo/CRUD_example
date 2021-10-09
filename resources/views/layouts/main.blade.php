@@ -41,7 +41,8 @@
     $addTagButton.onclick = () => {
         const $tagsBlock = document.querySelector('.tags');
         const $newTagBlock = document.createElement('div');
-        $newTagBlock.innerHTML = `<x-forms.tags.input id="{{ rand(0, 1000) }}" />`;
+        const getRandom = Math.floor(Math.random() * (1000 - 7) + 7);
+        $newTagBlock.innerHTML = `<x-forms.tags.input id="${getRandom}" />`;
         $tagsBlock.appendChild($newTagBlock);
     };
 </script>

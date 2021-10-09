@@ -48,6 +48,6 @@ class User extends Authenticatable
      */
     public function tags(): HasMany
     {
-        return $this->hasMany('App\Models\Tags');
+        return $this->hasMany('App\Models\Tag');
     }
 }
