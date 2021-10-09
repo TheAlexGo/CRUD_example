@@ -11,7 +11,7 @@ class TagsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return RedirectResponse
+     * @return void
      */
     public function create(Request $request)
     {
@@ -24,14 +24,12 @@ class TagsController extends Controller
                "text" => $tag
             ]);
         }
-
-        return redirect()->route('users.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Tag  $tag
+     * @param  Tag  $tag
      * @return void
      */
     public function destroy(Tag $tag)

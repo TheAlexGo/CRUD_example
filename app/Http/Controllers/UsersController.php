@@ -80,22 +80,29 @@ class UsersController extends Controller
     public function update(UserRequest $request, User $user)
     {
         $user->update($request->only(['name', 'email']));
-        $oldTags = [];
-        $newTags = $request->tags;
 
-        foreach($user->tags as $oldTag) {
-            $oldTags[] = $oldTag->text;
-        }
-
-        $delTags = array_diff($oldTags, $newTags);
-
-        foreach($delTags as $delTag) {
-            foreach($user->tags as $tag) {
-                if($tag->text == $delTag) (new TagsController)->destroy($tag);
+        $oldTags = $user->tags;
+        $currentTags = $request->tags;
+        $delTags = $oldTags->filter(function ($obj) use ($currentTags) {
+            foreach ($currentTags as $newTag) {
+                if($obj->text == $newTag) {
+                    return false;
+                }
             }
+            return true;
+        });
+
+        $newTags = array_filter($currentTags, function ($tag) use ($oldTags) {
+           foreach ($oldTags as $oldTag) {
+               if ($oldTag->text == $tag) return false;
+           }
+           return true;
+        });
+
+        foreach ($delTags as $tag) {
+            (new TagsController)->destroy($tag);
         }
 
-        $newTags = array_diff($newTags,$oldTags);
         $request->request->replace(["tags" => $newTags]);
         $request->request->add(["user_id" => $user->id]);
         (new TagsController)->create($request);
