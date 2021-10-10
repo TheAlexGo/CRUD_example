@@ -83,6 +83,10 @@ class UsersController extends Controller
 
         $oldTags = $user->tags;
         $currentTags = $request->tags;
+
+        /**
+         * Поиск удалённых тегов
+         */
         $delTags = $oldTags->filter(function ($obj) use ($currentTags) {
             foreach ($currentTags as $newTag) {
                 if($obj->text == $newTag) {
@@ -91,17 +95,19 @@ class UsersController extends Controller
             }
             return true;
         });
+        foreach ($delTags as $tag) {
+            (new TagsController)->destroy($tag);
+        }
 
+        /**
+         * Поиск новых тегов
+         */
         $newTags = array_filter($currentTags, function ($tag) use ($oldTags) {
            foreach ($oldTags as $oldTag) {
                if ($oldTag->text == $tag) return false;
            }
            return true;
         });
-
-        foreach ($delTags as $tag) {
-            (new TagsController)->destroy($tag);
-        }
 
         $request->request->replace(["tags" => $newTags]);
         $request->request->add(["user_id" => $user->id]);

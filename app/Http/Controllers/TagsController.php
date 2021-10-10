@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class TagsController extends Controller
 {
     /**
-     * Show the form for creating a new resource.
+     * Создание нового тега
      *
      * @return void
      */
@@ -27,7 +27,7 @@ class TagsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Удаление тега
      *
      * @param  Tag  $tag
      * @return void
