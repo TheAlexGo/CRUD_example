@@ -48,6 +48,19 @@
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
+        <div class="mb-3">
+            <label class="form-label">
+                Tags
+                @isset($user)
+                    @if($user->tags->count())
+                        @foreach($user->tags as $tag)
+                            <x-forms.tags.input id="{{ $tag->id }}" text="{{ $tag->text }}" />
+                        @endforeach
+                    @endif
+                @endisset
+                <x-forms.tags.form />
+            </label>
+        </div>
         <button type="submit" class="btn btn-success">
             {{ isset($user) ? "Update" : "Create" }}
         </button>
