@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TagsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', 'users');
 Route::resource('users', UsersController::class);
+
+Route::get('/tags', [TagsController::class, 'getTags'])->name('tag.get');

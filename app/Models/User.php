@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -44,10 +46,10 @@ class User extends Authenticatable
 
     /**
      * Получение тегов пользователя
-     * @return HasMany
+     * @return BelongsToMany
      */
-    public function tags(): HasMany
+    public function tags(): BelongsToMany
     {
-        return $this->hasMany('App\Models\Tag');
+        return $this->belongsToMany(Tag::class, 'user_tags');
     }
 }
