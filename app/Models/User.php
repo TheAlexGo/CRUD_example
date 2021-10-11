@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use phpDocumentor\Reflection\Types\Collection;
+use Illuminate\Database\Eloquent\Collection;
 
 class User extends Authenticatable
 {
@@ -56,9 +56,9 @@ class User extends Authenticatable
 
     /**
      * Получение всех тегов из системы
-     * @return Tag[]
+     * @return Tag[] | Collection
      */
-    public function allTags(): array
+    public function allTags(): Collection
     {
         return Tag::all();
     }
