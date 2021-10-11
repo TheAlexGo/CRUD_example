@@ -15,8 +15,8 @@ class CreateUserTagsTable extends Migration
     {
         Schema::create('user_tags', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users');
-            $table->foreignId('tag_id')->references('id')->on('tags');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });
     }
 

@@ -46,7 +46,7 @@
         $tagsBlock.appendChild($newTagBlock);
     };
 
-    function focusTag(event) {
+    function focusTag(input) {
         fetch('{{ route('tag.get') }}')
             .then((r) => {
                 if (r.ok) {
@@ -67,18 +67,12 @@
                     $li.id = el.id;
                     $li.innerHTML = el.text;
                     $li.onclick = (e) => {
-                        event.value = e.target.textContent;
+                        input.value = e.target.textContent;
                     }
                     $divMain.appendChild($li);
                 });
-                event.parentNode.appendChild($divMain);
+                if(!input.value) input.parentNode.appendChild($divMain);
             });
-    }
-
-    function focusTagOut() {
-        setTimeout(() => {
-            // document.querySelector('.availableTags')?.remove();
-        }, 100);
     }
 
     document.addEventListener('click', (e) => {
