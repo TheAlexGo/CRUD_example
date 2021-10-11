@@ -11,6 +11,7 @@
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
+            <th scope="col">Tags</th>
             <th scope="col">Actions</th>
         </tr>
         </thead>
@@ -26,6 +27,20 @@
                 <td>
                     <a href="{{ route('users.show', $user) }}">
                         {{ $user->email }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ route('users.show', $user) }}">
+                        @if($user->tags->count())
+                                @foreach($user->tags as $key=>$tag)
+                                    @if($key < 3)
+                                        <span>{{ $tag->text }}, </span>
+                                    @else
+                                        <span>...</span>
+                                        @break
+                                    @endif
+                                @endforeach
+                        @endif
                     </a>
                 </td>
                 <td>

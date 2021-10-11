@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -42,9 +43,10 @@ class UsersController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $user_id = User::create($request->only(['name', 'email']))->id;
-        $request->request->add(compact('user_id'));
-        (new TagsController)->create($request);
+        $user = User::create($request->only(['name', 'email']));
+
+        $user->addTags($user, $request->tags);
+
         return redirect()->route('users.index')->withSuccess('Created user ' . $request->name);
     }
 
@@ -80,38 +82,10 @@ class UsersController extends Controller
     public function update(UserRequest $request, User $user)
     {
         $user->update($request->only(['name', 'email']));
+        $user->tags()->detach();
 
-        $oldTags = $user->tags;
-        $currentTags = $request->tags;
+        $user->addTags($user, $request->tags);
 
-        /**
-         * Поиск удалённых тегов
-         */
-        $delTags = $oldTags->filter(function ($obj) use ($currentTags) {
-            foreach ($currentTags as $newTag) {
-                if($obj->text == $newTag) {
-                    return false;
-                }
-            }
-            return true;
-        });
-        foreach ($delTags as $tag) {
-            (new TagsController)->destroy($tag);
-        }
-
-        /**
-         * Поиск новых тегов
-         */
-        $newTags = array_filter($currentTags, function ($tag) use ($oldTags) {
-           foreach ($oldTags as $oldTag) {
-               if ($oldTag->text == $tag) return false;
-           }
-           return true;
-        });
-
-        $request->request->replace(["tags" => $newTags]);
-        $request->request->add(["user_id" => $user->id]);
-        (new TagsController)->create($request);
         return redirect()->route('users.index')->withSuccess('Updated user ' . $user->name);
     }
 

@@ -1,0 +1,24 @@
+a {
+    text-decoration: none;
+}
+
+.tagsBlock {
+    position: relative;
+}
+
+.availableTags {
+    position: absolute;
+    top: 38px;
+    left: 0;
+    max-height: 100px;
+    width: 100%;
+    overflow: auto;
+    background-color: #ffffff;
+    padding: 0;
+    list-style: none;
+    z-index: 99999;
+}
+
+.availableTag {
+    cursor: pointer;
+}

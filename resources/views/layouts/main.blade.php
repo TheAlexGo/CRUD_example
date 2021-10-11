@@ -8,6 +8,7 @@
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset("css/app.css") }}">
 </head>
 <body class="bg-light">
 
@@ -29,7 +30,6 @@
         integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
         crossorigin="anonymous"></script>
 <script>
-    const $deleteTagsButton = document.querySelectorAll('.deleteTag');
     const $addTagButton = document.querySelector('.addTag');
 
     function deleteTag(button) {
@@ -45,6 +45,41 @@
         $newTagBlock.innerHTML = `<x-forms.tags.input id="${getRandom}" />`;
         $tagsBlock.appendChild($newTagBlock);
     };
+
+    function focusTag(input) {
+        fetch('{{ route('tag.get') }}')
+            .then((r) => {
+                if (r.ok) {
+                    return r.json();
+                } else {
+                    throw new Error(`Ошибка: ${r.statusText}`);
+                }
+            })
+            .then((r) => {
+                if(document.querySelector('.availableTags')) {
+                    document.querySelectorAll('.availableTags').forEach(el => el.remove());
+                }
+                const $divMain = document.createElement('ul');
+                $divMain.classList.add('availableTags');
+                r.forEach((el) => {
+                    const $li = document.createElement('li');
+                    $li.classList.add('availableTag');
+                    $li.id = el.id;
+                    $li.innerHTML = el.text;
+                    $li.onclick = (e) => {
+                        input.value = e.target.textContent;
+                    }
+                    $divMain.appendChild($li);
+                });
+                if(!input.value) input.parentNode.appendChild($divMain);
+            });
+    }
+
+    document.addEventListener('click', (e) => {
+        if (!e.target.classList.contains('tagInput')) {
+            document.querySelector('.availableTags')?.remove();
+        }
+    })
 </script>
 </body>
 </html>
