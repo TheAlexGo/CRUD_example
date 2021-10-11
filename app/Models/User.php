@@ -58,7 +58,7 @@ class User extends Authenticatable
      * Получение всех тегов из системы
      * @return Tag[] | Collection
      */
-    public function allTags(): array
+    public function allTags(): Collection
     {
         return Tag::all();
     }
